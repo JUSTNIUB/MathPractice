@@ -27,6 +27,12 @@ y = np.array(1)
 
 print(x,type(x))
 print(y,type(y))
+
+x = torch.tensor([[1,2],[3,4]])
+print(x.shape)
+y = np.array([1,2])
+print(y.shape)
+
 #
 # plt.plot(x,y)
 # plt.show()

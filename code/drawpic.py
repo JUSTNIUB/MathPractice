@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 #anum = ['幂函数','指数函数','对数函数','激活函数']
 #testCase = '幂函数'
 # testCase = '指数函数'
-# testCase = '对数函数'
-testCase = '激活函数'
+testCase = '对数函数'
+#testCase = '激活函数'
 
 if testCase == '幂函数':
     x = numpy.arange(-2,2,0.1)
@@ -32,7 +32,9 @@ elif testCase == '对数函数':
     print('enter 对数函数')
     x = numpy.arange(0.1,10,0.1)
     y = numpy.log(x)
+    print(type(y))
     y = torch.from_numpy(y)
+    print(type(y),y.shape)
     plt.plot(x,y)
     pass
 elif testCase == '激活函数':
@@ -54,6 +56,7 @@ elif testCase == '激活函数':
 else:
     pass
 
+plt.title("active function")
 plt.plot([0 for i in range(-10,10)],[i for i in range(-10,10)])
 plt.plot([i for i in range(-10,10)],[0 for i in range(-10,10)])
 plt.show()

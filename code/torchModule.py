@@ -1,56 +1,46 @@
-#torch基本框架
-
-#导入
+#torch 训练的基本模型
 import torch
-import numpy as np
-import matplotlib.pyplot as plt
 from torch import optim
+import matplotlib.pyplot as plt
 
-#定义torch 张量
+#定义张量 xs ys
 xs = torch.arange(0,1,0.01)
-print(type(xs))
-ys = xs*3+4+torch.rand(100)
-print(ys)
+ys = xs*4+5+torch.rand(100)#要查下rand的用途
 
 class Line(torch.nn.Module):
     def __init__(self):
         super().__init__()
-        #模型初始化
-        self.w = torch.nn.Parameter(torch.rand(1))#定义神经网络参数 初始值随机一个张量
-        self.b = torch.nn.Parameter(torch.rand(1))#定义神经网络参数 Parameter集合了所有参数
+        #定义模型的参数
+        self.w = torch.nn.Parameter(torch.rand(1))
+        self.b = torch.nn.Parameter(torch.rand(1))
 
-    #前向推理过程
     def forward(self,x):
-        return self.w*x + self.b
+        return self.w*x+self.b
 
-if __name__ == '__main__':
-    #初始化一个网络模型
+if __name__ == "__main__":
+    #定义一个模型
     line = Line()
+    #定义一个优化器
+    opt = optim.SGD(line.parameters(),lr=0.1)
+    #开始绘画功能
+    plt.ion()
 
-    #定义优化器
-    #opt = optim.SGD(line.parameters(),lr=0.1)
-    opt = optim.Adam(line.parameters(),lr=0.1)
-    plt.ion()#开始动态绘画
-    for epoch in range(60):
+    for equm in range(60):
         for _x,_y in zip(xs,ys):
-            #前向推理
             z = line(_x)
-            #获取损失
             loss = (z-_y)**2
-            #求导
-            #梯度清空
-            opt.zero_grad()
-            #自动求导
-            loss.backward()
-
-            #学习过程:优化过程
-            opt.step()
-
-            print(line.w.item(),line.b.item(),loss.item())
-            plt.cla()
-            plt.plot(xs,ys,".")
+            #优化器
+            opt.zero_grad()# why we need it ???
+            loss.backward()# ???
+            opt.step()     # ???
             v = [line.w*e+line.b for e in xs]
+            plt.cla()
+            plt.plot(xs, ys, '.')
             plt.plot(xs,v)
             plt.pause(0.01)
+
     plt.ioff()
     plt.show()
+
+
+
